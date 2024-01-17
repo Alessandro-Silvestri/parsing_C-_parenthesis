@@ -17,18 +17,16 @@ namespace myProgram
             string temp;
             string result = "";
             string message = "(What if) there are (more than) one (set of parentheses)?";
-            if (message.IndexOf("(") != -1)
+
+            while ((open = message.IndexOf("(")) != -1 && (close = message.IndexOf(")")) != -1)
             {
-                do
-                {
-                    open = message.IndexOf("(");
-                    close = message.IndexOf(")");
-                    open++;
-                    temp = message.Substring(open, (close - open));
-                    result += temp + ".";
-                    message = message.Substring(close + 1, message.Length - close - 1);
-                } while (message.IndexOf("(") != -1);
-                
+                temp = message.Substring(open + 1, (close - open - 1));
+                result += temp + ".";
+                message = message.Substring(close + 1);
+            }
+
+            if (!string.IsNullOrEmpty(result))
+            {
                 result = result.Substring(0, result.Length - 1);
                 string[] resultSplit = result.Split(".");
                 foreach (var i in resultSplit)
